@@ -1,19 +1,20 @@
 class Tack < Formula
   desc "Sustainable static site generator"
   homepage "https://burningsoda.com/software/tack"
-  url "https://burningsoda.com/software/tack/download/tack-1.0.0.tar.gz"
-  sha256 "f52d435353d011f12a37d3b6c6c8aeda97c161f13e1fa2122475f25dc3e2837e"
+  url "https://burningsoda.com/software/tack/download/tack-1.1.0.tar.gz"
+  sha256 "30efd5a25e889e0d3b4c3333baf147e9bedf1ab32967cbd284fc2026fd7b227a"
   license "MIT"
 
   depends_on "go" => :build
 
   def install
     system "go", "build", *std_go_args
+    # bin.install "tack"
+    man.mkpath
+    man1.install "tack.1"
   end
 
   test do
-    site = testpath/"mysite"
-    system "#{bin}/tack", "tack", site
-    assert_predicate testpath/"#{site}/output", :exist?
+    system "go", "test", "./..."
   end
 end
