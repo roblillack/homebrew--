@@ -15,6 +15,12 @@ class Tack < Formula
   end
 
   test do
-    system "go", "test", "./..."
+    system "mkdir", "content", "templates"
+    system "sh", "-c", "echo 'who: World' > content/default.yaml"
+    system "sh", "-c", "echo 'Hello {{who}}!' > templates/default.mustache"
+    system "tack"
+    assert_predicate testpath/"output", :exist?
+    assert_predicate testpath/"output/index.html", :exist?
+    assert_equal "Hello World!", shell_output("cat output/index.html").strip
   end
 end
