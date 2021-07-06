@@ -9,18 +9,17 @@ class Tack < Formula
 
   def install
     system "go", "build", "-ldflags", "-X github.com/roblillack/tack/commands.Version=v#{version}", *std_go_args
-    # bin.install "tack"
     man.mkpath
     man1.install "tack.1"
   end
 
   test do
-    system "mkdir", "content", "templates"
-    system "sh", "-c", "echo 'who: World' > content/default.yaml"
-    system "sh", "-c", "echo 'Hello {{who}}!' > templates/default.mustache"
+    mkdir "content"
+    mkdir "templates"
+    (testpath/"content/default.yaml").write "who: World"
+    (testpath/"templates/default.mustache").write "Hello {{who}}!"
     system "tack"
-    assert_predicate testpath/"output", :exist?
     assert_predicate testpath/"output/index.html", :exist?
-    assert_equal "Hello World!", shell_output("cat output/index.html").strip
+    assert_equal "Hello World!", (testpath/"output/index.html").read.strip
   end
 end
