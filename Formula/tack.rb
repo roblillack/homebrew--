@@ -1,8 +1,8 @@
 class Tack < Formula
   desc "Sustainable static site generator"
   homepage "https://burningsoda.com/software/tack"
-  url "https://burningsoda.com/software/tack/download/tack-1.2.0.tar.gz"
-  sha256 "b67a8598f13e8581e27b5418195ec6f3452d8b65076fd972d4f6c64ace465477"
+  url "https://burningsoda.com/software/tack/download/tack-1.3.0.tar.gz"
+  sha256 "c9e7dc325e717a0a1c7897997debec27259a1856a3f53358812b42ec63c11cc0"
   license "MIT"
 
   depends_on "go" => :build
